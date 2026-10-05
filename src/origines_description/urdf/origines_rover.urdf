@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<robot name="origines_rover">
+
+  <!-- Couleurs -->
+  <material name="chassis"><color rgba="0.35 0.40 0.47 1"/></material>
+  <material name="roue"><color rgba="0.85 0.85 0.85 1"/></material>
+  <material name="lidar"><color rgba="0.96 0.77 0.0 1"/></material>
+
+  <!-- Repère au sol, sous le rover -->
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.0325" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Châssis : 25 cm x 15 cm x 6 cm, 2 kg -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0.015" rpy="0 0 0"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.00435" ixy="0" ixz="0" iyy="0.01102" iyz="0" izz="0.01417"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.015" rpy="0 0 0"/>
+      <geometry><box size="0.25 0.15 0.06"/></geometry>
+      <material name="chassis"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.015" rpy="0 0 0"/>
+      <geometry><box size="0.25 0.15 0.06"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Roue avant gauche -->
+  <link name="wheel_fl_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.0000312" ixy="0" ixz="0" iyy="0.0000312" iyz="0" izz="0.0000528"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0325" length="0.024"/></geometry>
+      <material name="roue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0325" length="0.024"/></geometry>
+    </collision>
+  </link>
+  <joint name="wheel_fl_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_fl_link"/>
+    <origin xyz="0.08 0.087 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Roue avant droite -->
+  <link name="wheel_fr_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.0000312" ixy="0" ixz="0" iyy="0.0000312" iyz="0" izz="0.0000528"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0325" length="0.024"/></geometry>
+      <material name="roue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0325" length="0.024"/></geometry>
+    </collision>
+  </link>
+  <joint name="wheel_fr_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_fr_link"/>
+    <origin xyz="0.08 -0.087 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Roue arrière gauche -->
+  <link name="wheel_rl_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.0000312" ixy="0" ixz="0" iyy="0.0000312" iyz="0" izz="0.0000528"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0325" length="0.024"/></geometry>
+      <material name="roue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0325" length="0.024"/></geometry>
+    </collision>
+  </link>
+  <joint name="wheel_rl_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_rl_link"/>
+    <origin xyz="-0.08 0.087 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Roue arrière droite -->
+  <link name="wheel_rr_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.0000312" ixy="0" ixz="0" iyy="0.0000312" iyz="0" izz="0.0000528"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0325" length="0.024"/></geometry>
+      <material name="roue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0325" length="0.024"/></geometry>
+    </collision>
+  </link>
+  <joint name="wheel_rr_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_rr_link"/>
+    <origin xyz="-0.08 -0.087 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- LiDAR : posé sur le dessus du châssis -->
+  <link name="lidar_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.000044" ixy="0" ixz="0" iyy="0.000044" iyz="0" izz="0.000061"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.035" length="0.04"/></geometry>
+      <material name="lidar"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.035" length="0.04"/></geometry>
+    </collision>
+  </link>
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0.01 0 0.065" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ===== Partie Gazebo (ignorée par RViz) ===== -->
+
+  <!-- Friction des roues -->
+  <gazebo reference="wheel_fl_link"><mu1>0.4</mu1><mu2>0.4</mu2></gazebo>
+  <gazebo reference="wheel_fr_link"><mu1>0.4</mu1><mu2>0.4</mu2></gazebo>
+  <gazebo reference="wheel_rl_link"><mu1>0.4</mu1><mu2>0.4</mu2></gazebo>
+  <gazebo reference="wheel_rr_link"><mu1>0.4</mu1><mu2>0.4</mu2></gazebo>
+
+  <!-- LiDAR simulé : 360 points, 10 Hz, portée 0,12 à 6 m -->
+  <gazebo reference="lidar_link">
+    <sensor name="lidar" type="gpu_lidar">
+      <topic>scan</topic>
+      <gz_frame_id>lidar_link</gz_frame_id>
+      <update_rate>10</update_rate>
+      <always_on>true</always_on>
+      <visualize>false</visualize>
+      <lidar>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14159</min_angle>
+            <max_angle>3.14159</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.12</min>
+          <max>6.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </lidar>
+    </sensor>
+  </gazebo>
+
+  <!-- Conduite : 2 roues à gauche, 2 roues à droite -->
+  <gazebo>
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+      <left_joint>wheel_fl_joint</left_joint>
+      <left_joint>wheel_rl_joint</left_joint>
+      <right_joint>wheel_fr_joint</right_joint>
+      <right_joint>wheel_rr_joint</right_joint>
+      <wheel_separation>0.22</wheel_separation>
+      <wheel_radius>0.0325</wheel_radius>
+      <topic>cmd_vel</topic>
+      <odom_topic>odom</odom_topic>
+      <tf_topic>tf</tf_topic>
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_footprint</child_frame_id>
+      <odom_publish_frequency>30</odom_publish_frequency>
+    </plugin>
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+      <topic>joint_states</topic>
+    </plugin>
+  </gazebo>
+
+</robot>
