@@ -132,9 +132,10 @@ class AvoidanceNode(Node):
             cmd.angular.z = max(-1.0, min(1.0, 2.0 * best))
             cmd.linear.x = self.speed * max(0.0, math.cos(best))
             self.get_logger().info(
-                f'Cap choisi : {math.degrees(best):+.0f}° '
-                f'(but à {math.degrees(goal_err):+.0f}°)',
-                throttle_duration_sec=1.0)
+                f'Cap {math.degrees(best):+4.0f}° | but {math.degrees(goal_err):+4.0f}° '
+                f'| distance {math.hypot(dx, dy):.2f} m '
+                f'| vitesse {cmd.linear.x:.2f} m/s',
+                throttle_duration_sec=0.3)
         self.cmd_pub.publish(cmd)
 
     def stop(self):

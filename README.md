@@ -9,8 +9,8 @@ Projet développé en public par **RobotiqueStudio Labs (RSL)**.
 - [x] Modèle 3D du rover (URDF) affiché dans RViz
 - [x] Arène de simulation Gazebo avec obstacle
 - [x] Le rover roule en simulation, piloté par ROS 2
-- [ ] LiDAR simulé
-- [ ] Évitement d'obstacle
+- [x] LiDAR simulé
+- [x] Évitement d'obstacle
 - [ ] Navigation autonome (SLAM + Nav2)
 - [ ] Construction du rover réel
 - [ ] Drone éclaireur
@@ -21,6 +21,7 @@ Projet développé en public par **RobotiqueStudio Labs (RSL)**.
 |---|---|
 | `origines_description` | Modèle URDF du rover, configuration RViz |
 | `origines_sim` | Monde Gazebo (arène 4 x 4 m) et lanceur de simulation |
+| `origines_control` | Évitement d’obstacle réactif à partir du LiDAR |
 
 ## Environnement
 
