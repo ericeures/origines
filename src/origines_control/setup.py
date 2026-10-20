@@ -25,6 +25,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'explore_node = origines_control.explore_node:main',
             'avoidance_node = origines_control.avoidance_node:main'
         ],
     },

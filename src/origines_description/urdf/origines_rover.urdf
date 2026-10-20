@@ -155,10 +155,10 @@
   <!-- ===== Partie Gazebo (ignorée par RViz) ===== -->
 
   <!-- Friction des roues -->
-  <gazebo reference="wheel_fl_link"><mu1>0.4</mu1><mu2>0.4</mu2></gazebo>
-  <gazebo reference="wheel_fr_link"><mu1>0.4</mu1><mu2>0.4</mu2></gazebo>
-  <gazebo reference="wheel_rl_link"><mu1>0.4</mu1><mu2>0.4</mu2></gazebo>
-  <gazebo reference="wheel_rr_link"><mu1>0.4</mu1><mu2>0.4</mu2></gazebo>
+  <gazebo reference="wheel_fl_link"><mu1>1.0</mu1><mu2>1.0</mu2></gazebo>
+  <gazebo reference="wheel_fr_link"><mu1>1.0</mu1><mu2>1.0</mu2></gazebo>
+  <gazebo reference="wheel_rl_link"><mu1>0.01</mu1><mu2>0.01</mu2></gazebo>
+  <gazebo reference="wheel_rr_link"><mu1>0.01</mu1><mu2>0.01</mu2></gazebo>
 
   <!-- LiDAR simulé : 360 points, 10 Hz, portée 0,12 à 6 m -->
   <gazebo reference="lidar_link">
@@ -190,10 +190,8 @@
   <gazebo>
     <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
       <left_joint>wheel_fl_joint</left_joint>
-      <left_joint>wheel_rl_joint</left_joint>
       <right_joint>wheel_fr_joint</right_joint>
-      <right_joint>wheel_rr_joint</right_joint>
-      <wheel_separation>0.22</wheel_separation>
+      <wheel_separation>0.174</wheel_separation>
       <wheel_radius>0.0325</wheel_radius>
       <topic>cmd_vel</topic>
       <odom_topic>odom</odom_topic>

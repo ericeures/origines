@@ -23,8 +23,8 @@ def normalise(angle):
 
 class AvoidanceNode(Node):
 
-    def __init__(self):
-        super().__init__('avoidance_node')
+    def __init__(self, name='avoidance_node'):
+        super().__init__(name)
 
         # Réglages (modifiables au lancement avec -p nom:=valeur)
         # Le but est exprimé dans le repère "odom" : l'origine est le point
@@ -124,17 +124,17 @@ class AvoidanceNode(Node):
         cmd = Twist()
         if best is None:
             # Tout est bloqué devant : on pivote sur place
-            cmd.angular.z = 0.8
+            cmd.angular.z = 0.5
             self.get_logger().info(
                 'Bloqué, je pivote.', throttle_duration_sec=2.0)
         else:
             self.prev_heading = yaw + best
-            cmd.angular.z = max(-1.0, min(1.0, 2.0 * best))
+            cmd.angular.z = max(-0.6, min(0.6, 1.5 * best))
             cmd.linear.x = self.speed * max(0.0, math.cos(best))
             self.get_logger().info(
-                f'Cap {math.degrees(best):+4.0f}° | but {math.degrees(goal_err):+4.0f}° '
-                f'| distance {math.hypot(dx, dy):.2f} m '
-                f'| vitesse {cmd.linear.x:.2f} m/s',
+                f'cap {math.degrees(best):+4.0f}° | but {math.degrees(goal_err):+4.0f}° '
+                f'| dist {math.hypot(dx, dy):.2f} m '
+                f'| v {cmd.linear.x:.2f}',
                 throttle_duration_sec=0.3)
         self.cmd_pub.publish(cmd)
 
