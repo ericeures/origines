@@ -39,6 +39,12 @@ amcl:
     z_rand: 0.5
     z_short: 0.05
     scan_topic: scan
+    set_initial_pose: true
+    initial_pose:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      yaw: 0.0
 bt_navigator:
   ros__parameters:
     global_frame: map
@@ -230,14 +236,6 @@ local_costmap:
       plugins:
       - voxel_layer
       - inflation_layer
-      filters:
-      - keepout_filter
-      keepout_filter:
-        plugin: nav2_costmap_2d::KeepoutFilter
-        enabled: KEEPOUT_ZONE_ENABLED
-        filter_info_topic: keepout_costmap_filter_info
-        override_lethal_cost: true
-        lethal_override_cost: 200
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
         cost_scaling_factor: 3.0
@@ -281,20 +279,6 @@ global_costmap:
       - static_layer
       - obstacle_layer
       - inflation_layer
-      filters:
-      - keepout_filter
-      - speed_filter
-      keepout_filter:
-        plugin: nav2_costmap_2d::KeepoutFilter
-        enabled: KEEPOUT_ZONE_ENABLED
-        filter_info_topic: keepout_costmap_filter_info
-        override_lethal_cost: true
-        lethal_override_cost: 200
-      speed_filter:
-        plugin: nav2_costmap_2d::SpeedFilter
-        enabled: SPEED_ZONE_ENABLED
-        filter_info_topic: speed_costmap_filter_info
-        speed_limit_topic: speed_limit
       obstacle_layer:
         plugin: nav2_costmap_2d::ObstacleLayer
         enabled: true
